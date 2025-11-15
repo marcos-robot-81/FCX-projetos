@@ -16,7 +16,6 @@
         
         <%
             GDados gd = new GDados();
-            // O método GetDados espera um parâmetro, mesmo que não o utilize.
             ArrayList<Pessoa> pessoas = gd.GetDados(""); 
             for (int i = 1; i < pessoas.size(); i++) {
                 Pessoa p = pessoas.get(i);
@@ -30,6 +29,9 @@
         <%
             }
         %>
+
+  
+
     </table>
     </body>
  </html>
