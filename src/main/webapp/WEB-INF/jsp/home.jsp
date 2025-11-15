@@ -1,37 +1,55 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="java.util.*, com.fcx.fcx.DB.*" %>
-<%   %>
+<%  %>
  <html> 
  <head>
      <title> Home </title>
  </head>
     <body>
+    <header>
+    <h1> Saida e entrada </h1>
     <h2>${message}</h2>
+    </header>
     </br>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Quantidade</th>
-        </tr>
+        <main>
+        <form action="home" method="post">
+            <input type="date" name="date" value="${Data}" min="2025-11-15" onchange="this.form.submit()"/>
         
-        <%
-            GDados gd = new GDados();
-            ArrayList<Pessoa> pessoas = gd.GetDados(""); 
-            for (int i = 1; i < pessoas.size(); i++) {
-                Pessoa p = pessoas.get(i);
-        %>
-        <tr>
-            <td><%= p.getId() %></td>
-            <td><%= p.getNome() %></td>
-            <td><%= p.getQuantidade() %></td>
-        </tr>
+            <table border="1">
+                <%
+                    ArrayList<Pessoa> pessoas = (ArrayList<Pessoa>) request.getAttribute("pessoas");
+                    if (pessoas != null && !pessoas.isEmpty()) {
+                        Pessoa cabecalho = pessoas.get(0);
+                %>
+                <tr>
+                    <th><%= cabecalho.getId() %></th>
+                    <th><%= cabecalho.getNome() %></th>
+                    <th><%= cabecalho.getQuantidade() %></th>
+                </tr>
+                <%
+                    }
+                %>
+                <tr>
+                    <td><input type="text" name="bid" placeholder="ID" value="${bid}" onchange="this.form.submit()"></td>
+                    <td><input type="text" name="bname" placeholder="Nome" value="${bname}" onchange="this.form.submit()"></td>
+                    <td><input type="text" name="bquantidade" placeholder="Quantidade" value="${bquantidade}" onchange="this.form.submit()"></td>
+                </tr>
+                <%
+                    // 4. Iterar sobre a lista para exibir os dados.
+                    for (int i = 1; i < pessoas.size(); i++ ) {
+                        Pessoa p = pessoas.get(i);
+                %>
+                <tr>
+                    <td><%= p.getId() %></td>
+                    <td><%= p.getNome() %></td>
+                    <td><%= p.getQuantidade() %></td>
+                </tr>
+                <%
+                    }
+                %>
+            </table>
+        </form>
         
-        <%
-            }
-        %>
 
-  
-
-    </table>
+    </main>
     </body>
  </html>
