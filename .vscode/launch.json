@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-FcxApplication<fcx>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.fcx.fcx.FcxApplication",
+            "projectName": "fcx",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
