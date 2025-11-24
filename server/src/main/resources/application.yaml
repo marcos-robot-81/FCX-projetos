@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: fcx
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  cloud:
+    aws:
+      region:
+        static: us-east-1
+      credentials:
+        access-key: fake
+        secret-key: fake
+      dynamodb:
+        endpoint: http://localhost:8000

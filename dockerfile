@@ -30,3 +30,7 @@ RUN set -eux \
 
 ENV LANG=C.UTF-8
 ENV JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
+
+COPY server /app
+
+CMD [""]
