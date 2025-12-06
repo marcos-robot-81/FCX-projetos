@@ -18,7 +18,8 @@ public class FcxApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(FcxApplication.class, args);
 
-		System.out.println("Ola mundo");
+        
+		System.out.println("Server Up");
     }
 
 }
