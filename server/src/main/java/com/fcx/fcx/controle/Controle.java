@@ -7,14 +7,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.Calendar;
+//import java.util.List;
 
-import com.fcx.fcx.dynamo.*;
+// Importa suas classes do Dynamo
+import com.fcx.fcx.dynamo.Funcionario;
+import com.fcx.fcx.dynamo.FuncionarioRepository;
 
-//Test da versão alfa 
-import com.fcx.fcx.DB.*;
+// Importa suas classes de teste 
+//import com.fcx.fcx.DB.*;
 
 @Controller
 public class Controle {
+
+    private final FuncionarioRepository funcionarioRepository;
+
+    public Controle(FuncionarioRepository funcionarioRepository) {
+        this.funcionarioRepository = funcionarioRepository;
+    }
 
     @GetMapping("/")
     public String getIndex(Model model) {
@@ -26,38 +35,62 @@ public class Controle {
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "Senha", required = false) String Senha,
             @RequestParam(value = "date", required = false) String date,
-            @RequestParam(value = "bid", required = false) String bid,
+            @RequestParam(value = "bid", required = false) String bid, // matricula
             @RequestParam(value = "bname", required = false) String bname,
-            @RequestParam(value = "bquantidade", required = false) String bquantidade,
+            @RequestParam(value = "bquantidade", required = false) String bquantidade, // Agora será o Cargo
             Model model) {
-        //Funcionario func = new Funcionario();
+        
+        Funcionario func = new Funcionario();
 
-        //func.setMatricola(bid);
-        //func.setNome(name);
-        //func.setQualtidade(bquantidade);
+        func.setMatricula(bid);      
+        func.setNome(name);
+        func.setCargo(bquantidade);
+
+        
 
         Calendar hoje = Calendar.getInstance();
-        model.addAttribute("message", "Bem-vindo ao FCX! " + name);
-        String data;
-        // ! set date
-        if (date != null) {
-            data = date;
+        String dataFormatada;
+        
+        if (date != null && !date.isEmpty()) {
+            dataFormatada = date;
         } else {
-            data = hoje.get(Calendar.YEAR) + "-" + (hoje.get(Calendar.MONTH) + 1) + "-"
-                    + hoje.get(Calendar.DAY_OF_MONTH); // yes ISO
-            // String data = (hoje.get(Calendar.DAY_OF_MONTH) + "-" +
-            // (hoje.get(Calendar.MONTH) + 1) + "-" + hoje.get(Calendar.YEAR)); // not ISO
-
+            dataFormatada = hoje.get(Calendar.YEAR) + "-" + (hoje.get(Calendar.MONTH) + 1) + "-" + hoje.get(Calendar.DAY_OF_MONTH);
         }
+        func.setData(dataFormatada);
 
-        // ! get Dados and set to model
-        GDados gd = new GDados();
-        ArrayList<Pessoa> pessoas = gd.GetDados("");
-        model.addAttribute("pessoas", pessoas);
+        // (Só salva se tiver pelo menos um ID/Nome para não sujar o banco com vazios)
+        //if (bid != null && !bid.isEmpty()) {
+        //    funcionarioRepository.salvar(func);
+        //    System.out.println("Funcionario Salvo no DynamoDB: " + func.getNome());
+        //}
+
+        model.addAttribute("message", "Bem-vindo! " + name);
+
+        // ! Seus dados antigos de teste (Mantive para não quebrar sua tela)
+        //GDados gd = new GDados();
+        //ArrayList<Pessoa> pessoas = gd.GetDados("");
+
+        // busca no banco DynamoDB por matricola (bid);
+        ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
+        if(bid != null && !bid.isEmpty()){
+            funcionarios = (ArrayList<Funcionario>) funcionarioRepository.buscarPorIdRL(bid);
+        }else{
+            funcionarios = (ArrayList<Funcionario>) funcionarioRepository.listarTodos();
+
+        }    
+
+
+        model.addAttribute("pessoas", funcionarios);
+        //model.addAttribute("Funcionario" , funcionarios);
+        
+        // Passa de volta para a tela
         model.addAttribute("bquantidade", bquantidade);
         model.addAttribute("bid", bid);
         model.addAttribute("bname", bname);
-        model.addAttribute("Data", data);
+        model.addAttribute("Data", dataFormatada);
+
+        
+        
         return "home";
     }
 
@@ -65,22 +98,4 @@ public class Controle {
     public String gethome(Model model) {
         return "login";
     }
-
-    // teste de codigo
-    @GetMapping("test1")
-    public String getTestWeb1(Model model) {
-
-        return "testDb";
-    }
-
-    @PostMapping("test1")
-    public String getTestWeb1(
-            @RequestParam(value = "name", required = false) String name,
-            Model model) {
-
-        FuncionarioRepository fr = new FuncionarioRepository(null);
-
-        return "testDb";
-    }
-
 }

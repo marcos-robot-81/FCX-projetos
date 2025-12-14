@@ -1,52 +1,63 @@
 package com.fcx.fcx.dynamo;
 
-import java.util.Date;
-
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
 @DynamoDbBean
 public class Funcionario {
     
-    // atributos
-    private String matricola;
+    // Nomes em Português Correto
+    private String matricula;
     private String nome;
-    private String Qualtidade;
-    private Date data;
+    private String cargo; // Antes era "qualtidade"
+    private String data;
     
-    //Constructor
     public Funcionario() {
+    }
+    public Funcionario(String matricula) {
+        this.matricula = matricula;
+    }
+    public Funcionario(String matricula, String nome) {
+        this.matricula = matricula;
+        this.nome = nome;
 
     }
+    public Funcionario(String matricula, String nome, String cargo, String data) {
+        this.matricula = matricula;
+        this.nome = nome;
+        this.cargo = cargo;
+        this.data = data;
+    }
 
-    // get sets
-     @DynamoDbPartitionKey
-    public String getMatricola(){
-        return matricola;
+    // --- GETTERS E SETTERS ---
+
+    // A Chave Primária (Partition Key)
+    @DynamoDbPartitionKey
+    public String getMatricula(){
+        return matricula;
     }   
+    public void setMatricula(String matricula){
+        this.matricula = matricula;
+    }
+
     public String getNome() {
         return this.nome;
-    }
-    public String getQualtidade() {
-        return this.Qualtidade;
-    }
-    public Date getData() {
-        return this.data;
-    }
-    // set sets
-    public void setMatricola(String matricola){
-        this.matricola = matricola;
     }
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public void setQualtidade(String Qualtidade) {
-        this.Qualtidade = Qualtidade;
+
+    public String getCargo() {
+        return this.cargo;
     }
-    public void setData(Date data) {
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public String getData() {
+        return this.data;
+    }
+    public void setData(String data) {
         this.data = data;
     }
-
-
-
 }

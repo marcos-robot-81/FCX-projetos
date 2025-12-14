@@ -1,2 +1,4 @@
 ## ainda em comtrução
 ./docker-compose.yaml
+
+./dynamo-data/*

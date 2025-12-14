@@ -10,7 +10,7 @@ spring:
       region:
         static: us-east-1
       credentials:
-        access-key: fake
-        secret-key: fake
+        access-key: teste
+        secret-key: teste
       dynamodb:
         endpoint: http://localhost:8000
