@@ -38,15 +38,17 @@ public class Controle {
             @RequestParam(value = "bid", required = false) String bid, // matricula
             @RequestParam(value = "bname", required = false) String bname,
             @RequestParam(value = "bquantidade", required = false) String bquantidade, // Agora será o Cargo
+            @RequestParam(value = "anterior", required = false) String anterior,
+            @RequestParam(value = "atual", required = false) String atual,
+            @RequestParam(value = "proxima", required = false) String proxima,
             Model model) {
         
         Funcionario func = new Funcionario();
 
+
         func.setMatricula(bid);      
         func.setNome(name);
         func.setCargo(bquantidade);
-
-        
 
         Calendar hoje = Calendar.getInstance();
         String dataFormatada;
@@ -57,30 +59,58 @@ public class Controle {
             dataFormatada = hoje.get(Calendar.YEAR) + "-" + (hoje.get(Calendar.MONTH) + 1) + "-" + hoje.get(Calendar.DAY_OF_MONTH);
         }
         func.setData(dataFormatada);
-
-        // (Só salva se tiver pelo menos um ID/Nome para não sujar o banco com vazios)
-        //if (bid != null && !bid.isEmpty()) {
-        //    funcionarioRepository.salvar(func);
-        //    System.out.println("Funcionario Salvo no DynamoDB: " + func.getNome());
-        //}
-
         model.addAttribute("message", "Bem-vindo! " + name);
 
-        // ! Seus dados antigos de teste (Mantive para não quebrar sua tela)
-        //GDados gd = new GDados();
-        //ArrayList<Pessoa> pessoas = gd.GetDados("");
 
-        // busca no banco DynamoDB por matricola (bid);
         ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
         if(bid != null && !bid.isEmpty()){
             funcionarios = (ArrayList<Funcionario>) funcionarioRepository.buscarPorIdRL(bid);
         }else{
             funcionarios = (ArrayList<Funcionario>) funcionarioRepository.listarTodos();
 
-        }    
+        }
+        
+        // número de pajinas
+        int Pagina =(int) (funcionarios.size() / 10)+1;
+        if(  anterior != null && !anterior.isEmpty() ){
+            if( Integer.parseInt(anterior) > 0 ){
+                atual = anterior;
+                proxima = String.valueOf( Integer.parseInt(anterior) +1 );
+                anterior = String.valueOf( Integer.parseInt(anterior) -1 );
 
+            }else{
+                anterior = "0";
+                atual = "1";
+                proxima = "2";
+            }
+        }
+        if(  proxima != null && !proxima.isEmpty() && atual== null ){
+            if( Integer.parseInt(proxima) <= Pagina ){
+                atual = proxima;
+                anterior = String.valueOf( Integer.parseInt(proxima) -1 );
+                proxima = String.valueOf( Integer.parseInt(proxima) +1 );
+            }else{
+                anterior = String.valueOf(Integer.parseInt(proxima) -2);
+                atual = String.valueOf(Integer.parseInt(proxima) -1);
+            }
+        }
 
-        model.addAttribute("pessoas", funcionarios);
+        anterior = ( anterior == null || anterior.isEmpty()) ? "0" : anterior;
+        atual = ( atual == null || atual.isEmpty()) ? "1" : atual;
+        proxima = ( proxima == null || proxima.isEmpty()) ? "2" : proxima;
+
+        ArrayList<Funcionario> funcionarios2 = new ArrayList<>();
+
+        for(int i = (Integer.parseInt(atual)-1)*10; i < (Integer.parseInt(atual)-1)*10+10 ;i++){
+            if( i < funcionarios.size() ){
+                funcionarios2.add(funcionarios.get(i));
+            }else{
+                funcionarios2.add(new Funcionario(" "," "," "," "));
+            }
+        }
+        
+
+        model.addAttribute("pessoas", funcionarios2);
         //model.addAttribute("Funcionario" , funcionarios);
         
         // Passa de volta para a tela
@@ -88,8 +118,12 @@ public class Controle {
         model.addAttribute("bid", bid);
         model.addAttribute("bname", bname);
         model.addAttribute("Data", dataFormatada);
+        model.addAttribute("Pagina", "");
+        model.addAttribute("anterior", anterior);
+        model.addAttribute("atual", atual);
+        model.addAttribute("proxima", proxima);
 
-        
+
         
         return "home";
     }

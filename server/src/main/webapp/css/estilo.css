@@ -10,23 +10,31 @@ main{
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
 #date{
     margin: auto;
     justify-content: center;
     display: flex;
 }
-
 table{
     margin: auto;
 }
-
 header{
     margin: auto;
     width: auto;
 }
-
-.botão{
+#footer-tabela{
+    justify-content: center;
+    width: 400px;
+}
+#footer-tabela td{
+ 
+}
+#footer-tabela td p{
+    justify-content: center;
+    display: flex;
+    margin: auto;
+}
+#footer-tabela td input{
     justify-content: center;
     display: flex;
     margin: auto;

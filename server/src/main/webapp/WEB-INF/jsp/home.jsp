@@ -3,10 +3,8 @@
  <html> 
  <head>
      <title> Home </title>
-     <link rel="stylesheet" type="text/css" 
-          href="${pageContext.request.contextPath}/css/estilo.css">
+     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/estilo.css">
 
-     
  </head>
     <body>
     <header>
@@ -46,16 +44,17 @@
                     }
                 %>
 
-                <tr>
-                <td> <input class="botão" type="button" value="<-- 0" name="anterior" onchange="this.form.submit()" ></td>
-                <td> <p class="botão" name="atual" >1</p> </td>
-                <td> <input class="botão" type="button" value="2 -->" name="proxima" onchange="this.form.submit()" > </td>
+                <tr id="footer-tabela" >
+                <td> <p><-- <input type="submit" value="${anterior}" name="anterior" > </p> </td>
+                <td> <p  name="atual" >${atual}</p> </td>
+                <td> <p><input  type="submit" value="${proxima}" name="proxima" > --></p> </td>
                 
-                </tr>
+                </tr >
             </table>
         </form>
         
 
     </main>
+    <footer></footer>
     </body>
  </html>
