@@ -105,7 +105,7 @@ public class Controle {
             if( i < funcionarios.size() ){
                 funcionarios2.add(funcionarios.get(i));
             }else{
-                funcionarios2.add(new Funcionario(" "," "," "," "));
+                funcionarios2.add(new Funcionario("| "," "," "," "));
             }
         }
         
