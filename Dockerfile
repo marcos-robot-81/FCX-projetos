@@ -23,16 +23,18 @@ RUN set -eux \
     && curl -fL -o /etc/yum.repos.d/corretto.repo https://yum.corretto.aws/corretto.repo \
     && grep -q '^gpgcheck=1' /etc/yum.repos.d/corretto.repo \
     && echo "priority=9" >> /etc/yum.repos.d/corretto.repo \
-    && yum install -y java-17-amazon-corretto-devel-$version \
+    && yum install -y java-17-amazon-corretto-devel-$version \  
     && (find /usr/lib/jvm/java-17-amazon-corretto -name src.zip -delete || true) \
-    && yum install -y fontconfig \
+    && yum install -y fontconfig tar gzip \
     && yum clean all
 
-ENV LANG=C.UTF-8
+ENV LANG=C.UTF-8 
 ENV JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
 
-
+WORKDIR /app
 
 COPY server /app
 
-CMD ["./mvnw","spring-boot:run"]
+RUN chmod +x ./mvnw
+
+CMD ["./mvnw", "spring-boot:run"]

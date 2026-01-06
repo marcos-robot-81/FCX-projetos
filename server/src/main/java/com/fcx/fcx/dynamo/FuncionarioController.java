@@ -2,6 +2,9 @@ package com.fcx.fcx.dynamo;
 
 import org.springframework.web.bind.annotation.*;
 import java.util.List; // <--- Importante: Agora usamos Lista padrão do Java
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/funcionarios")
@@ -30,4 +33,6 @@ public class FuncionarioController {
     public List<Funcionario> listar() { // <--- Mudou de PageIterable para List
         return repository.listarTodos();
     }
+    
+    
 }

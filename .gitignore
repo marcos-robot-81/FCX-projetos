@@ -1,4 +1,36 @@
-## ainda em comtrução
-./docker-compose.yaml
+# --- ARQUIVOS DE SISTEMA ---
+.DS_Store
+Thumbs.db
 
+# --- JAVA / MAVEN (Obrigatório ignorar o target) ---
+**/target/
+*.class
+*.jar
+de/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.factorypath
+
+# --- TERRAFORM (Infraestrutura) ---
+**/.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+**/var.tfvars
+
+# --- DOCKER / DYNAMO ---
+dynamo-data/## ainda em comtrução
+./docker-compose.yaml
 ./dynamo-data/*
+
+# --- ADICIONE ISTO AQUI PARA BAIXO ---
+
+# Ignorar arquivos pesados do Terraform (Recursivo)
+**/.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+**/var.tfvars

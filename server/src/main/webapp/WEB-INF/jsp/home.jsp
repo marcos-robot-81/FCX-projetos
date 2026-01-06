@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" import="java.util.*, com.fcx.fcx.DB.Pessoa, com.fcx.fcx.dynamo.Funcionario " %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="java.util.*, com.fcx.fcx.DB.Pessoa, com.fcx.fcx.dynamo.Funcionario" %>
 <%  %>
  <html> 
  <head>
@@ -27,7 +27,7 @@
                 <tr>
                     <td><input type="text" name="bid" placeholder="ID" value="${bid}" onchange="this.form.submit()"></td>
                     <td><input type="text" name="bname" placeholder="Nome" value="${bname}" onchange="this.form.submit()"></td>
-                    <td><input type="text" name="bquantidade" placeholder="Quantidade" value="${bquantidade}" onchange="this.form.submit()"></td>
+                    <td><input type="text" name="bcargo" placeholder="cargo" value="${bcargo}" onchange="this.form.submit()"></td>
                 </tr>
                 <%
                     // 4. Iterar sobre a lista para exibir os dados.
@@ -51,6 +51,7 @@
                 
                 </tr >
             </table>
+            <a href="/Adicionar"><input type="button" value="Adicionar Funcionario"></a>
         </form>
         
 

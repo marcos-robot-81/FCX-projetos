@@ -1,0 +1,6 @@
+sudo docker run -d \
+  -p 8080:8080 \
+  --network rede-fcx \
+  -e DYNAMO_ENDPOINT="http://dynamo-banco:8000" \
+  fcx:0.0.7 
+  

@@ -30,6 +30,7 @@ public class FuncionarioRepository {
             funcionario.setMatricula(UUID.randomUUID().toString());
         }
         tabela.putItem(funcionario);
+
         return funcionario;
     }
 

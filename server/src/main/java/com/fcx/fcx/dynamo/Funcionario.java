@@ -22,6 +22,11 @@ public class Funcionario {
         this.nome = nome;
 
     }
+    public Funcionario(String matricula, String nome, String cargo) {
+        this.matricula = matricula;
+        this.nome = nome;
+        this.cargo = cargo;
+    }
     public Funcionario(String matricula, String nome, String cargo, String data) {
         this.matricula = matricula;
         this.nome = nome;
