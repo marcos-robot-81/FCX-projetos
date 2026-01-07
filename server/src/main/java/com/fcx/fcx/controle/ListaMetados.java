@@ -93,7 +93,6 @@ public class ListaMetados {
             }
         }
         // }
-        System.out.println("i:  atual: " + atual);
         this.pagina[0] = anterior;
         this.pagina[1] = atual;
         this.pagina[2] = proxima;
@@ -103,7 +102,6 @@ public class ListaMetados {
     public void SetData(String date) {
         // Data de hoje se não for informada {
         Calendar hoje = Calendar.getInstance();
-        String dataFormatada;
 
         if (date != null && !date.isEmpty()) {
             dataFormatada = date;
@@ -111,15 +109,11 @@ public class ListaMetados {
             dataFormatada = hoje.get(Calendar.YEAR) + "-" + (hoje.get(Calendar.MONTH) + 1) + "-"
                     + hoje.get(Calendar.DAY_OF_MONTH);
         }
-        func.setData(dataFormatada);
     }
 
     public void SetData() {
         Calendar hoje = Calendar.getInstance();
-        String dataFormatada;
-        dataFormatada = hoje.get(Calendar.YEAR) + "-" + (hoje.get(Calendar.MONTH) + 1) + "-"
-                + hoje.get(Calendar.DAY_OF_MONTH);
-        func.setData(dataFormatada);
+        dataFormatada = hoje.get(Calendar.YEAR) + "-" + (hoje.get(Calendar.MONTH) + 1) + "-"+ hoje.get(Calendar.DAY_OF_MONTH);
     }
 
     public Model setModel() {
@@ -129,13 +123,12 @@ public class ListaMetados {
         model.addAttribute("bcargo", func.getCargo());
         model.addAttribute("bid", func.getMatricula());
         model.addAttribute("bname", func.getNome());
-        model.addAttribute("Data", func.getData());
+        model.addAttribute("Data", dataFormatada);
         model.addAttribute("Pagina", "");
         model.addAttribute("anterior", this.pagina[0]);
         model.addAttribute("atual", this.pagina[1]);
         model.addAttribute("proxima", this.pagina[2]);
 
-        System.out.println(this.pagina);
         return this.model;
     }
 
@@ -146,7 +139,7 @@ public class ListaMetados {
         model.addAttribute("bcargo", func.getCargo());
         model.addAttribute("bid", func.getMatricula());
         model.addAttribute("bname", func.getNome());
-        model.addAttribute("Data", func.getData());
+        model.addAttribute("Data", dataFormatada);
         model.addAttribute("Pagina", "");
         model.addAttribute("anterior", pagina[0]);
         model.addAttribute("atual", pagina[1]);

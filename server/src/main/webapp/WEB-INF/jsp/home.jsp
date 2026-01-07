@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" import="java.util.*, com.fcx.fcx.DB.Pessoa, com.fcx.fcx.dynamo.Funcionario" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="java.util.*, com.fcx.fcx.dynamo.Funcionario" %>
 <%  %>
  <html> 
  <head>
@@ -39,9 +39,9 @@
                 </tr>
                 <%
                     // 4. Iterar sobre a lista para exibir os dados.
-                    ArrayList<Funcionario> pessoas = (ArrayList<Funcionario>) request.getAttribute("pessoas");
-                    for (int i = 0; i < pessoas.size(); i++ ) {
-                        Funcionario p = pessoas.get(i);
+                    ArrayList<Funcionario> Funcionario = (ArrayList<Funcionario>) request.getAttribute("pessoas");
+                    for (int i = 0; i < Funcionario.size(); i++ ) {
+                        Funcionario p = Funcionario.get(i);
                 %>
                 <tr>
                     <td><%= p.getMatricula() %></td>

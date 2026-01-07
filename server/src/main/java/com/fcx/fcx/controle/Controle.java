@@ -90,9 +90,7 @@ public class Controle {
 
     @PostMapping("/D")
     public void postMethodName(@RequestBody String entity) {
-        System.out.println("Deletando: " + entity);
         funcionarioRepository.deletar(entity);
-        System.out.println("Deletado!");
     }
     
     @GetMapping("/Deleta")
