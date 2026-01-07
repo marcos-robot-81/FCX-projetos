@@ -6,19 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import java.util.ArrayList;
-import java.util.Calendar;
+
 //import java.util.List;
 
 // Importa classes do Dynamo
 import com.fcx.fcx.dynamo.Funcionario;
 import com.fcx.fcx.dynamo.FuncionarioRepository;
-
-// Importa classes dos get post
-import com.fcx.fcx.controle.*;
-
-// Importa classes de teste 
-//import com.fcx.fcx.DB.*;
 
 @Controller
 public class Controle {
@@ -69,7 +62,7 @@ public class Controle {
     }
 
     @GetMapping("/Adicionar")
-    public String getMethodName(Model model) {
+    public String getAdciona(Model model) {
         Funcionario func = new Funcionario();    
         model.addAttribute("idiqual", false);
         model.addAttribute("funcionario", func);
@@ -101,6 +94,22 @@ public class Controle {
         funcionarioRepository.deletar(entity);
         System.out.println("Deletado!");
     }
+    
+    @GetMapping("/Deleta")
+    public String getMethodName(Model model) {
+        model.addAttribute("status", "");
+        return "deleta";
+    }
+
+    @PostMapping("/Deleta")
+    public String postMethodName(Model model,@RequestParam String matricula) {
+        Funcionario func = funcionarioRepository.buscarPorId(matricula);
+        model.addAttribute("funcionario", func);
+        model.addAttribute("status", funcionarioRepository.deletar(matricula));
+        return "deleta";
+    }
+    
+    
     
     
 

@@ -34,16 +34,6 @@ public class FuncionarioRepository {
         return funcionario;
     }
 
-    // 
-    //public Funcionario salvar-F(Funcionario funcionario) {
-    //    // Verifica se a MATRICULA está vazia
-    //    if (funcionario.getMatricula() == null || funcionario.getMatricula().isEmpty()) {
-    //        funcionario.setMatricula(UUID.randomUUID().toString());
-    //    }
-    //    
-    //    tabela.putItem(funcionario);
-    //    return funcionario;
-    //}
 
     public Funcionario buscarPorId(String matricula) {
         Key key = Key.builder().partitionValue(matricula).build();
@@ -64,9 +54,10 @@ public class FuncionarioRepository {
         return ToList(buscarPorId(matricula));
     }
 
-    public void deletar(String matricula) {
+    public String deletar(String matricula) {
         Key key = Key.builder().partitionValue(matricula).build();
         tabela.deleteItem(key);
+        return "deletado";
     }
 
     public List<Funcionario> listarTodos() {

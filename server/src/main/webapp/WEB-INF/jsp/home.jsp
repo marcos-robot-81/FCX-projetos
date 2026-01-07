@@ -3,31 +3,39 @@
  <html> 
  <head>
      <title> Home </title>
-     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/estilo.css">
+     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/estilo.home.css">
+     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
  </head>
     <body>
     <header>
-    <h1> Saida e entrada </h1>
-    <h2>${message}</h2>
+        <h1>Controle de Funcionários</h1>
+        <h2>${message}</h2>
     </header>
-    </br>
+    
         <main>
         <form action="home" method="post">
-            <input id="date" type="date" name="date" value="${Data}" min="2025-11-15" onchange="this.form.submit()"/>
+            <div class="toolbar">
+                <input id="date" type="date" name="date" value="${Data}" min="2025-11-15" onchange="this.form.submit()"/>
+                <div class="actions">
+                    <a href="/Adicionar" class="btn-primary">Adicionar Novo</a>
+                    <a href="/Deleta" class="btn-danger">Deletar</a>
+                </div>
+            </div>
         
-            <table border="1">
+            <div class="table-container">
+            <table class="styled-table">
             
                 <tr>
-                    <th><P>Matricola</P></th>
-                    <th> <P>Nome</P></th>
-                    <th> <P> Cargo </P></th>
+                    <th>Matrícula</th>
+                    <th>Nome</th>
+                    <th>Cargo</th>
                 </tr>
                 
                 <tr>
-                    <td><input type="text" name="bid" placeholder="ID" value="${bid}" onchange="this.form.submit()"></td>
-                    <td><input type="text" name="bname" placeholder="Nome" value="${bname}" onchange="this.form.submit()"></td>
-                    <td><input type="text" name="bcargo" placeholder="cargo" value="${bcargo}" onchange="this.form.submit()"></td>
+                    <td><input type="text" name="bid" placeholder="Filtrar Matrícula" value="${bid}" onchange="this.form.submit()"></td>
+                    <td><input type="text" name="bname" placeholder="Filtrar Nome" value="${bname}" onchange="this.form.submit()"></td>
+                    <td><input type="text" name="bcargo" placeholder="Filtrar Cargo" value="${bcargo}" onchange="this.form.submit()"></td>
                 </tr>
                 <%
                     // 4. Iterar sobre a lista para exibir os dados.
@@ -44,14 +52,14 @@
                     }
                 %>
 
-                <tr id="footer-tabela" >
-                <td> <p><-- <input type="submit" value="${anterior}" name="anterior" > </p> </td>
-                <td> <p  name="atual" >${atual}</p> </td>
-                <td> <p><input  type="submit" value="${proxima}" name="proxima" > --></p> </td>
-                
-                </tr >
             </table>
-            <a href="/Adicionar"><input type="button" value="Adicionar Funcionario"></a>
+            </div>
+            
+            <div class="pagination">
+                <input type="submit" value="${anterior}" name="anterior" class="btn-page">
+                <span class="current-page">${atual}</span>
+                <input type="submit" value="${proxima}" name="proxima" class="btn-page">
+            </div>
         </form>
         
 

@@ -3,37 +3,54 @@
 <html>
 <head>
     <title> Adicionar Funcionario </title>
+     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/estilo.adicionar.css">
+     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 </head>
     <body>
     <header>
-    <h1> Adicionar Funcionario </h1>
+        <h1> Adicionar Funcionário </h1>
     </header>
 
     <main>
-    <a href="/home"><input type="button" value="Voltar para lista"></a>
     <%
         Funcionario funcionario = (Funcionario) request.getAttribute("funcionario");
         Boolean idiqual = (Boolean) request.getAttribute("idiqual");
     %>
     <% if(funcionario.getMatricula() != null) { %>
         <% if(idiqual == true){ %>
-            <h2> Funcionario adicionado com sucesso! </h2>
-            <p>Dados do funcionario:</p>
-            <p> Matricula: ${funcionario.getMatricula()} </p>
-            <p> Nome: ${funcionario.getNome()} </p>
-            <p> Cargo: ${funcionario.getCargo()} </p> 
+            <div class="alert success">
+                <h2> Funcionário adicionado com sucesso! </h2>
+                <p><strong>Matrícula:</strong> ${funcionario.getMatricula()} </p>
+                <p><strong>Nome:</strong> ${funcionario.getNome()} </p>
+                <p><strong>Cargo:</strong> ${funcionario.getCargo()} </p> 
+            </div>
         <% }else{ %>
-            <h2> Funcionario foi adicionado com id : <%= funcionario.getMatricula() %> </h2>
+            <div class="alert info">
+                <h2> Funcionário foi adicionado com id : <%= funcionario.getMatricula() %> </h2>
+            </div>
     <% }}else{ %>
-        <h2> Preencha os campos para adicionar um novo funcionario </h2>
+        <h2 class="subtitle"> Preencha os campos abaixo </h2>
     <% }%>
 
-    <form action="Adicionar" method="post">
-        Matricula: <input type="text" name="matricula" value=""/> <br/>
-        Nome: <input type="text" name="name" value=""/> <br/>
-        Cargo: <input type="text" name="cargo" value=""/> <br/>
-        <input type="submit" value="Adicionar"/>
+    <form action="Adicionar" method="post" class="form-styled">
+        <div class="form-group">
+            <label>Matrícula</label>
+            <input type="text" name="matricula" value="" placeholder="Ex: 12345"/>
+        </div>
+        <div class="form-group">
+            <label>Nome</label>
+            <input type="text" name="name" value="" placeholder="Nome completo"/>
+        </div>
+        <div class="form-group">
+            <label>Cargo</label>
+            <input type="text" name="cargo" value="" placeholder="Cargo do funcionário"/>
+        </div>
+        <div class="form-actions">
+            <a href="/home" class="btn-secondary">Voltar</a>
+            <input type="submit" value="Salvar" class="btn-primary"/>
+        </div>
+    </form>
     </main>
     <footer></footer>
     </body>
