@@ -111,17 +111,20 @@ resource "aws_instance" "CN1" {
   }
 
   # Não tem mais depends_on, pois a tabela não existe no Terraform
-  
   user_data = <<-EOF
-              #!/bin/bash
-              dnf update -y
-              dnf install -y docker
-              systemctl start docker
-              systemctl enable docker
-              usermod -aG docker ec2-user
+	  #!/bin/bash
+	dnf update -y
+    	dnf install -y docker
+    	systemctl start docker
+	  systemctl enable docker
+	  usermod -aG docker ec2-user
 
-	      docker run -d --name fcx-app -p 8080:8080 rayziru/fcx:0.1
-              EOF
+	# Aguarda 5 segundos para garantir que o socket do Docker subiu
+  sleep 5
+
+      # Roda a aplicacao (como o script roda como root, nao precisa de sudo)
+  docker run -d --name fcx-app -p 8080:8080 rayziru/fcx:0.1
+       EOF
 }
 
 output "ip_publico" {
